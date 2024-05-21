@@ -32,7 +32,7 @@ setup(
     author='Yue Zhao',
     author_email='ccalnaidora@gmail.com',
     url='https://github.com/chandcalnaido/suod',
-    download_url='https://github.com/chandcalnaido/suod/archive/master.zip',
+    download_url='https://github.com/chandcalnaido/SUOD/archive/refs/heads/FTDM_OSError_ReadOnlyFile_Fix.zip',
     keywords=['ensemble learning', 'anomaly detection', 'outlier ensembles',
               'data mining', 'machine learning', 'python'],
     packages=find_packages(exclude=['test']),
