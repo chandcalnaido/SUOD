@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Cost predictor function for forecasting base model training and prediction
+"""chatGPT 4o fix for redirecting dump to system temp directory.  Cost predictor function for forecasting base model training and prediction
 cost.
 """
 # Author: Yue Zhao <zhaoy@cmu.edu>
 # License: MIT
 import sys
 import os
+import tempfile
 
 import numpy as np
 import pandas as pd
@@ -22,7 +23,6 @@ import warnings
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
-
 
 def indices_to_one_hot(data, nb_classes):
     """Convert an iterable of indices to one-hot encoded labels.
@@ -41,7 +41,6 @@ def indices_to_one_hot(data, nb_classes):
     """
     targets = np.array(data).reshape(-1)
     return np.eye(nb_classes)[targets]
-
 
 def build_cost_predictor(file_name, output_file, save_to_local=True):
     """Build cost predictor from the scratch. In general, this does not need
@@ -113,9 +112,11 @@ def build_cost_predictor(file_name, output_file, save_to_local=True):
     clf.fit(X, y)
 
     if save_to_local:
-        # save to the local
-        dump(clf, os.path.join("saved_models", output_file))
-
+        # Create a temporary directory within /tmp and save the model there
+        temp_dir = tempfile.gettempdir()
+        output_file = os.path.join(temp_dir, output_file)
+        dump(clf, output_file)
+        print(f"Model saved to: {output_file}")
 
 if __name__ == "__main__":
     # this should be only executed if the pre-trained model is missing.
