@@ -113,7 +113,7 @@ def build_cost_predictor(file_name, output_file, save_to_local=True):
 
     if save_to_local:
         # Create a temporary directory within /tmp and save the model there
-        temp_dir = tempfile.gettempdir()
+        temp_dir = '//tmp'
         output_file = os.path.join(temp_dir, output_file)
         dump(clf, output_file)
         print(f"Model saved to: {output_file}")
